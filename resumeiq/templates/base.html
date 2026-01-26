@@ -1,33 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}ResumeIQ - ATS Resume Analyzer{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    {% block extra_css %}{% endblock %}
+  <meta charset="UTF-8">
+  <title>{% block title %}ResumeIQ{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <!-- Theme persistence -->
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="container">
-            <h1 class="logo">ResumeIQ</h1>
-            <ul class="nav-menu">
-                <li><a href="{{ url_for('candidate.candidate_dashboard') }}">Dashboard</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <main class="container">
-        {% block content %}{% endblock %}
-    </main>
+<body class="bg-gray-100 dark:bg-slate-900 text-gray-900 dark:text-gray-100">
 
-    <footer class="footer">
-        <p>&copy; 2026 ResumeIQ. All rights reserved.</p>
-    </footer>
+<nav class="bg-white dark:bg-slate-900 shadow px-6 py-4 flex justify-between">
+  <a href="/" class="text-xl font-semibold">ResumeIQ</a>
 
-    <script src="{{ url_for('static', filename='js/candidate.js') }}"></script>
-    {% block extra_js %}{% endblock %}
+  {% if request.endpoint not in ['auth.login', 'auth.signup'] %}
+    <div class="space-x-4">
+      {% if session.get("user_id") %}
+        <a href="/profile" class="hover:underline">Profile</a>
+        <a href="/logout" class="hover:underline">Logout</a>
+      {% else %}
+        <a href="/login" class="hover:underline">Login</a>
+        <a href="/signup" class="hover:underline">Signup</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</nav>
+
+  <!-- CONTENT -->
+  <main class="container mx-auto px-4 py-10">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    function toggleTheme() {
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem(
+        "theme",
+        document.documentElement.classList.contains("dark")
+          ? "dark"
+          : "light"
+      );
+    }
+  </script>
+
 </body>
 </html>

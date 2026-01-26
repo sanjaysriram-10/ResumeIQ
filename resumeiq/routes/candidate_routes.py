@@ -1,27 +1,41 @@
-"""
-Candidate routes - handles all candidate-related endpoints
-"""
+from flask import Blueprint, request, jsonify, render_template
+from resumeiq.services.candidate_service import analyze_candidate
 
-from flask import Blueprint, render_template, request, jsonify
-from services.candidate_service import CandidateService
+candidate_bp = Blueprint("candidate", __name__)
 
-candidate_bp = Blueprint('candidate', __name__, url_prefix='/candidate')
-candidate_service = CandidateService()
+@candidate_bp.route("/", methods=["GET"])
+def dashboard():
+    return render_template("candidate/candidate_dashboard.html")
 
-@candidate_bp.route('/dashboard', methods=['GET'])
+@candidate_bp.route("/analyze", methods=["POST"])
+def analyze():
+    resume = request.files["resume"]
+    return jsonify(analyze_candidate(resume))
+from flask import Blueprint, render_template, request, jsonify, session, redirect
+from resumeiq.services.candidate_service import analyze_candidate
+
+candidate_bp = Blueprint("candidate", __name__)
+@candidate_bp.route("/", methods=["GET"])
 def candidate_dashboard():
-    """Display candidate dashboard"""
-    return render_template('candidate/candidate_dashboard.html')
+    if "user_id" not in session:
+        return redirect("/login")
+    if session.get("role") != "candidate":
+        return redirect("/login")
 
-@candidate_bp.route('/analyze', methods=['POST'])
+    return render_template("candidate/candidate_dashboard.html")
+@candidate_bp.route("/analyze", methods=["POST"])
 def analyze_resume():
-    """Analyze uploaded resume"""
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file uploaded'}), 400
-    
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'No file selected'}), 400
-    
-    result = candidate_service.analyze_resume(file)
+    if "user_id" not in session:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    if "resume" not in request.files:
+        return jsonify({"error": "No resume uploaded"}), 400
+
+    resume_file = request.files["resume"]
+
+    if resume_file.filename == "":
+        return jsonify({"error": "Empty file"}), 400
+
+    result = analyze_candidate(resume_file)
+
     return jsonify(result)

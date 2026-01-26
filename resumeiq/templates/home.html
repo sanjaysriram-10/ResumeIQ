@@ -1,0 +1,56 @@
+{% set hide_nav = true %}
+{% extends "base.html" %}
+{% block title %}ResumeIQ{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex flex-col items-center justify-center text-center px-6">
+
+  <!-- Hero Section -->
+  <h1 class="text-4xl md:text-5xl font-bold mb-4">
+    Resume<span class="text-blue-600">IQ</span>
+  </h1>
+
+  <p class="text-gray-600 dark:text-gray-300 max-w-2xl mb-8">
+    ResumeIQ is an intelligent resume screening and role-matching platform
+    designed to help candidates improve their resumes and enable recruiters
+    to shortlist the right talent efficiently.
+  </p>
+
+  <!-- Get Started Button -->
+  <a href="/login"
+     class="bg-blue-600 text-white px-8 py-3 rounded-lg
+            hover:bg-blue-700 transition text-lg mb-12">
+    Get Started
+  </a>
+
+  <!-- Feature Highlights -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl">
+
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow">
+      <h3 class="font-semibold mb-2">ATS Resume Analysis</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        Analyze resumes for ATS compatibility and identify key skills to
+        improve job application success.
+      </p>
+    </div>
+
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow">
+      <h3 class="font-semibold mb-2">Role Fit Insights</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        Discover which job roles best match your resume and understand
+        how strong your fit is for those roles.
+      </p>
+    </div>
+
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow">
+      <h3 class="font-semibold mb-2">Recruiter Shortlisting</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        Match multiple resumes against a job description and rank
+        candidates based on relevance and skills.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

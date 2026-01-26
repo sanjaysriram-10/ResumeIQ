@@ -1,10 +1,18 @@
-ATS_KEYWORDS = [
-    "python", "java", "sql", "flask", "django", "api",
-    "machine learning", "data analysis", "aws",
-    "git", "docker", "html", "css", "javascript"
+KEYWORDS = [
+    "python",
+    "java",
+    "sql",
+    "flask",
+    "django",
+    "machine learning",
+    "data analysis",
+    "api",
+    "aws",
+    "docker"
 ]
 
 def ats_score(resume_text):
     text = resume_text.lower()
-    matched = sum(1 for k in ATS_KEYWORDS if k in text)
-    return round((matched / len(ATS_KEYWORDS)) * 100, 2)
+    matched = sum(1 for skill in KEYWORDS if skill in text)
+    score = (matched / len(KEYWORDS)) * 100
+    return round(score, 2)

@@ -1,5 +1,6 @@
 function analyzeResume() {
   const file = document.getElementById("resume").files[0];
+  const role = document.getElementById("targetRole").value;
 
   if (!file) {
     alert("Please upload a resume");
@@ -8,6 +9,7 @@ function analyzeResume() {
 
   const formData = new FormData();
   formData.append("resume", file);
+  formData.append("target_role", role);
 
   fetch("/candidate/analyze", {
     method: "POST",
@@ -23,19 +25,15 @@ function analyzeResume() {
       document.getElementById("resultCard").classList.remove("hidden");
 
       document.getElementById("atsBar").style.width = data.ats_score + "%";
-      document.getElementById("atsText").innerText =
-        data.ats_score + "% ATS Match";
+      document.getElementById("atsText").innerText = data.ats_score + "% ATS match";
 
-      const skillsList = document.getElementById("skills");
-      skillsList.innerHTML = "";
+      document.getElementById("bestRole").innerText = data.best_fit_role;
+      document.getElementById("roleFit").innerText =
+        data.role_fit_percentage + "% match";
+      document.getElementById("roleFit").innerText =
+        data.role_fit_percentage + "% role fit";
 
-      data.skills.forEach(skill => {
-        const li = document.createElement("li");
-        li.innerText = skill;
-        skillsList.appendChild(li);
-      });
-    })
-    .catch(() => {
-      alert("Resume analysis failed");
+      document.getElementById("recommendations").innerHTML =
+        data.recommendations.map(r => `<li>${r}</li>`).join("");
     });
 }

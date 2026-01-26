@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Recruiter Dashboard{% endblock %}
+
+{% block content %}
+<div class="bg-white dark:bg-slate-800 p-8 rounded-xl shadow">
+
+  <h2 class="text-xl font-semibold mb-4">Recruiter Dashboard</h2>
+
+  {% if upload_count %}
+    <p class="text-green-600 mb-2">
+      {{ upload_count }} resumes uploaded successfully
+    </p>
+    <p class="text-sm text-gray-500 mb-6">
+      Next step: Paste a Job Description and click <b>Match Candidates</b>
+    </p>
+  {% endif %}
+
+  <!-- Resume Upload -->
+  <form action="/recruiter/upload" method="post" enctype="multipart/form-data" class="mb-6">
+    <label class="block mb-2 font-medium">Upload Resumes</label>
+    <input type="file" name="resumes" multiple
+      class="w-full p-3 border rounded dark:bg-slate-700 mb-3" required>
+    <button class="bg-gray-600 text-white px-4 py-2 rounded">
+      Upload Resumes
+    </button>
+  </form>
+
+  <!-- JD Input -->
+  <label class="block mb-2 font-medium">Job Description</label>
+  <textarea id="jd" rows="5"
+    class="w-full p-3 border rounded dark:bg-slate-700 mb-4"
+    placeholder="Paste Job Description here"></textarea>
+
+<button type="button"
+        onclick="analyzeCandidates()"
+        class="bg-blue-600 text-white px-5 py-2 rounded">
+  Match Candidates
+</button>
+
+  <!-- Results Table -->
+  <table class="w-full mt-6">
+    <thead>
+      <tr class="border-b">
+        <th class="p-3 text-left">Candidate</th>
+        <th class="p-3 text-left">Match %</th>
+        <th class="p-3 text-left">Best Role</th>
+      </tr>
+    </thead>
+    <tbody id="resultTable"></tbody>
+  </table>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/recruiter.js') }}"></script>
+{% endblock %}
