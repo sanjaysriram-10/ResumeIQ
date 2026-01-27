@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "resumeiq/app.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "resumeiq/app.py"
+    }
+  ]
+}
