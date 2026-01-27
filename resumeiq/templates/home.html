@@ -1,54 +1,82 @@
-{% set hide_nav = true %}
 {% extends "base.html" %}
-{% block title %}ResumeIQ{% endblock %}
+{% block title %}ResumeIQ – Smart Resume Screening{% endblock %}
 
 {% block content %}
-<div class="min-h-[80vh] flex flex-col items-center justify-center text-center px-6">
+<div class="min-h-[80vh] flex items-center justify-center">
 
-  <!-- Hero Section -->
-  <h1 class="text-4xl md:text-5xl font-bold mb-4">
-    Resume<span class="text-blue-600">IQ</span>
-  </h1>
+  <div class="max-w-4xl text-center">
 
-  <p class="text-gray-600 dark:text-gray-300 max-w-2xl mb-8">
-    ResumeIQ is an intelligent resume screening and role-matching platform
-    designed to help candidates improve their resumes and enable recruiters
-    to shortlist the right talent efficiently.
-  </p>
+    <!-- Hero Title -->
+    <h1 class="text-4xl md:text-5xl font-extrabold text-black mb-6">
+      Resume<span class="text-blue-600">IQ</span>
+    </h1>
 
-  <!-- Get Started Button -->
-  <a href="/login"
-     class="bg-blue-600 text-white px-8 py-3 rounded-lg
-            hover:bg-blue-700 transition text-lg mb-12">
-    Get Started
-  </a>
+    <!-- Subtitle -->
+    <p class="text-slate-400 text-lg mb-10">
+      Analyze resumes, match candidates to job roles, and get actionable insights
+      using modern AI techniques.
+    </p>
 
-  <!-- Feature Highlights -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl">
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
 
-    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow">
-      <h3 class="font-semibold mb-2">ATS Resume Analysis</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Analyze resumes for ATS compatibility and identify key skills to
-        improve job application success.
-      </p>
+      <a
+        href="/signup"
+        class="bg-blue-600 hover:bg-blue-700 transition
+               px-8 py-3 rounded-xl text-white font-semibold shadow-lg"
+      >
+        Get Started
+      </a>
+
+      <a
+        href="/login"
+        class="text-blue-400 hover:text-blue-300 underline text-sm"
+      >
+        Already have an account? Login
+      </a>
+
     </div>
 
-    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow">
-      <h3 class="font-semibold mb-2">Role Fit Insights</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Discover which job roles best match your resume and understand
-        how strong your fit is for those roles.
-      </p>
-    </div>
+    <!-- Feature Highlights -->
+    <!-- Feature Highlights -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 text-left">
 
-    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow">
-      <h3 class="font-semibold mb-2">Recruiter Shortlisting</h3>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Match multiple resumes against a job description and rank
-        candidates based on relevance and skills.
-      </p>
-    </div>
+  <div
+    class="bg-white border border-gray-200 p-6 rounded-xl shadow-sm
+           hover:shadow-md transition"
+  >
+    <h3 class="text-gray-800 font-semibold mb-2">
+       ATS Analysis
+    </h3>
+    <p class="text-gray-600 text-sm">
+      Evaluate resumes for ATS compatibility, structure, and keyword coverage.
+    </p>
+  </div>
+
+  <div
+    class="bg-white border border-gray-200 p-6 rounded-xl shadow-sm
+           hover:shadow-md transition"
+  >
+    <h3 class="text-gray-800 font-semibold mb-2">
+       AI Skill Matching
+    </h3>
+    <p class="text-gray-600 text-sm">
+      Match resumes with job descriptions using semantic AI techniques.
+    </p>
+  </div>
+
+  <div
+    class="bg-white border border-gray-200 p-6 rounded-xl shadow-sm
+           hover:shadow-md transition"
+  >
+    <h3 class="text-gray-800 font-semibold mb-2">
+      Smart Insights
+    </h3>
+    <p class="text-gray-600 text-sm">
+      Get role fit scores, recommendations, and resume improvement tips.
+    </p>
+  </div>
+</div>
 
   </div>
 

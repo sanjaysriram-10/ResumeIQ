@@ -2,48 +2,60 @@
 {% block title %}Recruiter Dashboard{% endblock %}
 
 {% block content %}
-<div class="bg-white dark:bg-slate-800 p-8 rounded-xl shadow">
+<div class="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow">
 
-  <h2 class="text-xl font-semibold mb-4">Recruiter Dashboard</h2>
+  <h2 class="text-2xl font-semibold mb-6">
+    Recruiter Dashboard
+  </h2>
 
-  {% if upload_count %}
-    <p class="text-green-600 mb-2">
-      {{ upload_count }} resumes uploaded successfully
-    </p>
-    <p class="text-sm text-gray-500 mb-6">
-      Next step: Paste a Job Description and click <b>Match Candidates</b>
-    </p>
-  {% endif %}
+  <!-- Upload -->
+  <label class="block font-medium mb-2">Upload Resumes</label>
+  <input
+    type="file"
+    id="resumes"
+    multiple
+    class="w-full p-3 border rounded mb-4"
+  >
 
-  <!-- Resume Upload -->
-  <form action="/recruiter/upload" method="post" enctype="multipart/form-data" class="mb-6">
-    <label class="block mb-2 font-medium">Upload Resumes</label>
-    <input type="file" name="resumes" multiple
-      class="w-full p-3 border rounded dark:bg-slate-700 mb-3" required>
-    <button class="bg-gray-600 text-white px-4 py-2 rounded">
-      Upload Resumes
+  <!-- JD -->
+  <label class="block font-medium mb-2">Job Description</label>
+  <textarea
+    id="jd"
+    rows="5"
+    class="w-full p-3 border rounded mb-4"
+    placeholder="Paste job description here"
+  ></textarea>
+
+  <div class="flex gap-4 mb-4">
+    <button
+      id="matchBtn"
+      onclick="analyzeCandidates()"
+      class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+    >
+      Match Candidates
     </button>
-  </form>
 
-  <!-- JD Input -->
-  <label class="block mb-2 font-medium">Job Description</label>
-  <textarea id="jd" rows="5"
-    class="w-full p-3 border rounded dark:bg-slate-700 mb-4"
-    placeholder="Paste Job Description here"></textarea>
+    <button
+      id="exportBtn"
+      onclick="exportCSV()"
+      class="hidden bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded"
+    >
+      Export CSV
+    </button>
+  </div>
 
-<button type="button"
-        onclick="analyzeCandidates()"
-        class="bg-blue-600 text-white px-5 py-2 rounded">
-  Match Candidates
-</button>
+  <div id="loading" class="hidden text-blue-600 text-sm mb-4">
+    Matching candidates...
+  </div>
 
-  <!-- Results Table -->
-  <table class="w-full mt-6">
+  <!-- Results -->
+  <table class="w-full mt-6 text-sm">
     <thead>
-      <tr class="border-b">
+      <tr>
         <th class="p-3 text-left">Candidate</th>
         <th class="p-3 text-left">Match %</th>
         <th class="p-3 text-left">Best Role</th>
+        <th class="p-3 text-left">Resume</th>
       </tr>
     </thead>
     <tbody id="resultTable"></tbody>

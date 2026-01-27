@@ -20,4 +20,4 @@ CREATE TABLE IF NOT EXISTS users (
 conn.commit()
 conn.close()
 
-print("✅ users table initialized successfully")
+print("users table initialized successfully")

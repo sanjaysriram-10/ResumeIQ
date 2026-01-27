@@ -1,5 +1,5 @@
-from flask import Blueprint, request, jsonify, render_template
-from resumeiq.services.candidate_service import analyze_candidate
+from flask import Blueprint, request, jsonify, render_template, session, redirect
+from resumeiq.services.candidate_service import analyze_candidate_resume
 
 candidate_bp = Blueprint("candidate", __name__)
 
@@ -10,10 +10,8 @@ def dashboard():
 @candidate_bp.route("/analyze", methods=["POST"])
 def analyze():
     resume = request.files["resume"]
-    return jsonify(analyze_candidate(resume))
-from flask import Blueprint, render_template, request, jsonify, session, redirect
-from resumeiq.services.candidate_service import analyze_candidate
-
+    return jsonify(analyze_candidate_resume(resume))
+    
 candidate_bp = Blueprint("candidate", __name__)
 @candidate_bp.route("/", methods=["GET"])
 def candidate_dashboard():
@@ -36,6 +34,7 @@ def analyze_resume():
     if resume_file.filename == "":
         return jsonify({"error": "Empty file"}), 400
 
-    result = analyze_candidate(resume_file)
+    target_role = request.form.get("target_role")
+    result = analyze_candidate_resume(resume_file, target_role)
 
     return jsonify(result)

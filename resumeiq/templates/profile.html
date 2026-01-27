@@ -1,26 +1,51 @@
 {% extends "base.html" %}
-{% block title %}Profile{% endblock %}
+{% block title %}Profile | ResumeIQ{% endblock %}
 
 {% block content %}
-<div class="max-w-xl mx-auto bg-white dark:bg-slate-800 p-8 rounded-xl shadow">
+<div class="min-h-[70vh] flex items-center justify-center">
 
-  <h2 class="text-2xl font-semibold mb-6">My Profile</h2>
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
 
-  <div class="space-y-4">
+    <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">
+      My Profile
+    </h2>
 
-    <div>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Name</p>
-      <p class="font-medium">{{ user.name }}</p>
+    <div class="space-y-4 text-gray-700">
+
+      <div class="flex justify-between border-b pb-2">
+        <span class="font-medium">Name</span>
+        <span>{{ user.name }}</span>
+      </div>
+
+      <div class="flex justify-between border-b pb-2">
+        <span class="font-medium">Email</span>
+        <span>{{ user.email }}</span>
+      </div>
+
+      <div class="flex justify-between pb-2">
+        <span class="font-medium">Role</span>
+        <span class="capitalize">{{ user.role }}</span>
+      </div>
+
     </div>
 
-    <div>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
-      <p class="font-medium">{{ user.email }}</p>
-    </div>
-
-    <div>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Role</p>
-      <p class="font-medium capitalize">{{ user.role }}</p>
+    <!-- CTA based on role -->
+    <div class="mt-8 text-center">
+      {% if user.role == "candidate" %}
+        <a
+          href="/candidate/"
+          class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+        >
+          Go to Candidate Dashboard
+        </a>
+      {% elif user.role == "recruiter" %}
+        <a
+          href="/recruiter/"
+          class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+        >
+          Go to Recruiter Dashboard
+        </a>
+      {% endif %}
     </div>
 
   </div>
